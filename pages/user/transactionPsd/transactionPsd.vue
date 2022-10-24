@@ -194,8 +194,7 @@
 				this.$refs.form1.validate(valid => {
 					if (valid) {
 						console.log('验证通过');
-						
-						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.$md5(this.form.Tpassword),code:this.form.code}).then((res)=>{
+						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.$md5(this.form.Tpassword)+'uEe',code:this.form.code}).then((res)=>{
 							console.log(res)
 							uni.showLoading({
 								title: '设置成功'
