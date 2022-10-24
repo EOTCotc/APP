@@ -143,8 +143,8 @@
 					if (valid) {
 						// delete this.form.confirmPwd
 						console.log('验证通过');
-						this.form.newPassWord = this.$md5(this.form.newPassWord)
-						this.form.confirmPwd = this.$md5(this.form.confirmPwd)
+						this.form.newPassWord = this.$md5(this.form.newPassWord +'uEe')
+						this.form.confirmPwd = this.$md5(this.form.confirmPwd +'uEe')
 						this.$u.api.forgotPWD(this.form).then(res => {
 							if (res.code == 0) {
 								this.$refs.uToast.show({

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="box"  style="padding-bottom: 100rpx;">
+		<view class="box" style="padding-bottom: 100rpx;">
 			<view class="account">
 				<u-image width="100rpx" height="100rpx" src="../../static/images/my/logo.png"></u-image>
 				<view class="user">
@@ -11,14 +11,14 @@
 			<view class="integral">
 				<view class="one">
 					<text>E积分</text>
-					<text class="num">5000</text>
+					<text class="num">{{EOTC}}</text>
 				</view>
 				<view class="one two">
 					<text>U积分</text>
-					<text class="num">100</text>
+					<text class="num">{{USDT}}</text>
 				</view>
 			</view>
-			<view >
+			<view>
 				<u-cell-group :border="false">
 					<u-cell-item title="DID认证" :arrow="true" :border-bottom="false" @click="authority()">
 						<u-image slot="icon" width="40rpx" height="40rpx" style="margin-right:  10rpx"
@@ -29,7 +29,7 @@
 							src="../../static/images/my/order.png"></u-image>
 					</u-cell-item>
 					<u-cell-item title="抽奖记录" :arrow="true" :border-bottom="false" @click="refflere()">
-						<u-image slot="icon"width="40rpx" height="40rpx"style="margin-right:  10rpx"
+						<u-image slot="icon" width="40rpx" height="40rpx" style="margin-right:  10rpx"
 							src="../../static/images/my/chou.png"></u-image>
 					</u-cell-item>
 					<u-cell-item title="交易密码" :arrow="true" :border-bottom="false" @click="transPsd()">
@@ -48,12 +48,13 @@
 			</view>
 		</view>
 		<!-- did认证弹框 -->
-		<u-modal title="DID认证" v-model="show" :content="content" :show-cancel-button="true" confirm-text="确定" @confirm="sure()"></u-modal>
+		<u-modal title="DID认证" v-model="show" :content="content" :show-cancel-button="true" confirm-text="确定"
+			@confirm="sure()"></u-modal>
 		<!-- 退出登录 -->
-		<u-modal title="退出提示" v-model="show_out" :content="out" :show-cancel-button="true" confirm-text="确定" @confirm="confirm()"
-			:content-style="conStyle" confirm-color="#666"></u-modal>
+		<u-modal title="退出提示" v-model="show_out" :content="out" :show-cancel-button="true" confirm-text="确定"
+			@confirm="confirm()" :content-style="conStyle" confirm-color="#666"></u-modal>
 		<!-- 底部组件 -->
-		<biqiu-tarbar  :active="active"></biqiu-tarbar>
+		<biqiu-tarbar :active="active"></biqiu-tarbar>
 	</view>
 </template>
 
@@ -74,25 +75,48 @@
 				conStyle: {
 					color: "#FD5009"
 				},
-				user:{}
-				
+				user: {},
+				EOTC: null,
+				USDT: null,
 			}
 		},
-		created(){
-			this.$u.api.getuserinfo().then(res=>{
-				this.user=res.items;
-				console.log(this.user)
-				localStorage.setItem("user",JSON.stringify(this.user))
-			})
+		created() {
+			this.$u.api.getuserinfo().then(res => {
+				this.user = res.items;
+				this.query()
+				uni.setStorageSync("user", this.user)
+			});
+			// let data={uid:this.uid,pwd:this.pwd};
+			// this.$u.api.getQuery(data).then(res=>{
+			// 	console.log(res)
+			// })
 		},
 		methods: {
+			query() {
+				uni.request({
+					url: 'https://api.eotcyu.club/api/OTC/QueryPoints?uid=' + this.user.uid + '&pwd=' + this.user
+						.userId,
+					method: 'post',
+					success: (res) => {
+						console.log(res)
+						this.USDT = +res.data.USDT;
+						this.EOTC = +res.data.EOTC;
+					}
+				})
+			},
 			about() {},
 			// did认证
 			authority() {
 				this.show = true;
 			},
 			//did认证确定
-			sure(){
+			sure() {
+				// #ifdef H5
+				window.location.href = 'https://did.eotc.im'
+				// #endif
+				// #ifdef APP-PLUS
+				plus.runtime.openURL('https://did.eotc.im')
+				// #endif
 				console.log(222)
 			},
 			// 退出登录	
@@ -100,35 +124,39 @@
 				this.show_out = true;
 			},
 			//退出确定
-			confirm(){
-				localStorage.removeItem('userToken')
-				localStorage.removeItem('__DC_STAT_UUID')
-				uni.redirectTo({
-					url:'/pages/login/index'
-				})
+			confirm() {
+				try {
+					uni.removeStorageSync('userToken');
+					uni.removeStorageSync('user');
+					uni.redirectTo({
+						url: '/pages/login/index'
+					})
+				} catch (e) {
+					// error
+				}
 			},
 			//抽奖记录
-			refflere(){
+			refflere() {
 				uni.redirectTo({
-					url:'/pages/user/rafflerecord/rafflerecord'
+					url: '/pages/user/rafflerecord/rafflerecord'
 				})
 			},
 			//交易密码
-			transPsd(){
+			transPsd() {
 				uni.redirectTo({
-					url:'/pages/user/transactionPsd/transactionPsd'
+					url: '/pages/user/transactionPsd/transactionPsd'
 				})
 			},
 			//联系我们
-			contact(){
+			contact() {
 				uni.redirectTo({
-					url:'/pages/user/contact/index'
+					url: '/pages/user/contact/index'
 				})
 			},
 			//我的订单
-			order(){
+			order() {
 				uni.redirectTo({
-					url:'/pages/user/order/order'
+					url: '/pages/user/order/order'
 				})
 			}
 		}
@@ -139,6 +167,7 @@
 	page {
 		background: linear-gradient(to bottom left, #f2f7ff, 10%, #FFFFFF);
 	}
+
 	.account {
 		background: none;
 		margin-top: 130rpx;
@@ -146,6 +175,7 @@
 		float: left;
 		display: flex;
 		align-items: center;
+
 		.user {
 			margin-left: 10rpx;
 			display: flex;
@@ -154,11 +184,13 @@
 			line-height: 60rpx;
 		}
 	}
+
 	.integral {
 		clear: both;
 		display: flex;
 		justify-content: space-around;
 		margin-bottom: 20rpx;
+
 		.one {
 			width: 43%;
 			height: 145rpx;
@@ -173,21 +205,26 @@
 			font-size: 30rpx;
 			padding-left: 30rpx;
 		}
+
 		.num {
 			font-size: 45rpx;
 			font-weight: bold;
 		}
+
 		.two {
 			background-color: #EFFFF0;
 			color: #4DB978;
 		}
 	}
+
 	.notice {
-		margin:30rpx;
+		margin: 30rpx;
 	}
+
 	/deep/.u-cell-item-box[data-v-5723aa40] {
 		background: none;
 	}
+
 	/deep/ .u-line-1 {
 		font-weight: bold;
 	}

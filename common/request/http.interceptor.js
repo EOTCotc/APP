@@ -24,6 +24,7 @@ const install = (Vue, vm) => {
 
     // 请求拦截部分，如配置，每次请求前都会执行
     Vue.prototype.$u.http.interceptor.request = (config) => {
+		console.log(config,'config')
         if (config.header.needToken) {
             // 获取用户token
             const userToken = db.get("userToken");

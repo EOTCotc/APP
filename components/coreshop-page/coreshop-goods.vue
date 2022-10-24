@@ -8,24 +8,17 @@
                 </view>
                 <view class="" v-if="count">
                     <u-grid :col="coreshopdata.parameters.column" :border="false">
-                        <u-grid-item bg-color="transparent" :custom-style="{padding: '0rpx'}" v-for="(item, index) in coreshopdata.parameters.list" :key="index" @click="goGoodsDetail(item.id)">
+                        <u-grid-item bg-color="transparent" :custom-style="{padding: '0rpx'}" v-for="(item, index) in coreshopdata.parameters.list" :key="index" @click="goGoodsDetail(item.courseId)">
                             <view class="good_box">
                                 <!-- 警告：微信小程序中需要hx2.8.11版本才支持在template中结合其他组件，比如下方的lazy-load组件 -->
-                                <u-lazy-load threshold="-150" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
+                                <u-lazy-load threshold="-150" border-radius="10" :image="item.images[0]" :index="index"></u-lazy-load>
                                 <view class="good_title u-line-1">
                                     {{item.name}}
                                 </view>
-                                <view class="good-tag-level level1" v-if="item.level === 1">
-                                    初级
-                                </view>
-                                <view class="good-tag-level level2" v-if="item.level === 2">
-                                    中级
-                                </view>
-                                <view class="good-tag-level level3" v-if="item.level === 3">
-                                    高级
-                                </view>
+								<good-level :level="item.grade"></good-level>
                                 <view class="good-price">
-                                    {{item.price}}元 <span class="u-font-xs  coreshop-text-through u-margin-left-15 coreshop-text-gray">{{item.mktprice}}元</span>
+                                    {{item.price}} U
+									<!-- <span class="u-font-xs  coreshop-text-through u-margin-left-15 coreshop-text-gray">{{item.mktprice}}U</span> -->
                                 </view>
                                 <view class="good-tag-recommend" v-if="item.isRecommend">
                                     推荐
@@ -38,7 +31,7 @@
                     </u-grid>
                 </view>
                 <view v-else-if="!count && !coreshopdata.parameters.listAjax">
-                    <u-grid col="3" border="false" align="center">
+                    <u-grid col="3" :border="false" align="center">
                         <u-grid-item bg-color="transparent" :custom-style="{padding: '0rpx'}" v-for="item in 3" :key="item">
                             <view class="good_box">
                                 <!-- 警告：微信小程序中需要hx2.8.11版本才支持在template中结合其他组件，比如下方的lazy-load组件 -->
@@ -109,11 +102,11 @@
                     <view v-if="count">
                         <swiper :class="coreshopdata.parameters.column==3?'swiper3':coreshopdata.parameters.column==2?'swiper2':''" @change="change">
                             <swiper-item v-for="no of pageCount" :key="no">
-                                <u-grid :col="coreshopdata.parameters.column" :border="false" :align="center">
+                                <u-grid :col="coreshopdata.parameters.column" :align="center">
                                     <u-grid-item bg-color="transparent" :custom-style="{padding: '0rpx'}" v-for="(item, index)  in coreshopdata.parameters.list" v-if="index >=coreshopdata.parameters.column*no && index <=coreshopdata.parameters.column*(no+1)" :key="index" @click="goGoodsDetail(item.id)">
                                         <view class="good_box">
                                             <!-- 警告：微信小程序中需要hx2.8.11版本才支持在template中结合其他组件，比如下方的lazy-load组件 -->
-                                            <u-lazy-load threshold="-150" border-radius="10" :image="item.image" :index="item.id"></u-lazy-load>
+                                            <u-lazy-load border-radius="10" :image="item.image" :index="item.id"></u-lazy-load>
                                             <view class="good_title u-line-2">
                                                 {{item.name}}
                                             </view>
@@ -149,6 +142,7 @@
 
 <script>
     import { goods } from '@/common/mixins/mixinsHelper.js'
+	import goodLevel from "@/components/good-level.vue"
     export default {
         mixins: [goods],
         data() {
@@ -156,6 +150,9 @@
                 current: 0,
             };
         },
+		components: {
+			goodLevel
+		},
         filters: {
             substr(val) {
                 if (val.length == 0 || val == undefined) {

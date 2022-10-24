@@ -1,6 +1,6 @@
 {
     "name" : "核心商城系统",
-    "appid" : "__UNI__EAACF14",
+    "appid" : "__UNI__A855AFD",
     "description" : "核心商城系统（CoreShop）是基于uni-app框架开发的商城应用程序",
     "versionName" : "1.0",
     "versionCode" : 1,
@@ -50,11 +50,11 @@
                 "payment" : {
                     "weixin" : {
                         "appid" : "wxd56f71964a318e5d"
-                    },
-                    "alipay" : {
-                        "scheme" : ""
                     }
                 },
+                // "alipay" : {
+                //     "scheme" : ""
+                // }
                 "ad" : {},
                 "maps" : {},
                 "oauth" : {
@@ -62,12 +62,12 @@
                 }
             },
             "icons" : {
-                "android" : {
-                    "hdpi" : "unpackage/res/icons/72x72.png",
-                    "xhdpi" : "unpackage/res/icons/96x96.png",
-                    "xxhdpi" : "unpackage/res/icons/144x144.png",
-                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
-                },
+                // "android" : {
+                //     "hdpi" : "unpackage/res/icons/72x72.png",
+                //     "xhdpi" : "unpackage/res/icons/96x96.png",
+                //     "xxhdpi" : "unpackage/res/icons/144x144.png",
+                //     "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                // },
                 "ios" : {
                     "appstore" : "unpackage/res/icons/1024x1024.png",
                     "ipad" : {
@@ -130,7 +130,7 @@
         "devServer" : {
             "port" : 80,
             "disableHostCheck" : true,
-            "https" : false
+            "https" : true
         },
         "sdkConfigs" : {
             "maps" : {
@@ -166,3 +166,7 @@
     "mp-alipay" : {},
     "mp-baidu" : {}
 }
+// "alipay" : {
+//     "scheme" : ""
+// }
+

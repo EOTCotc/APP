@@ -70,7 +70,7 @@
 			}
 		},
 		created() {
-			this.getorder();
+			// this.getorder();
 			// 			this.$u.api.apporder({
 			//   rid: "string",
 			//   orderType: 0,
@@ -146,6 +146,9 @@
 </script>
 
 <style lang="scss" scoped>
+	page{
+		background: #fff;
+	}
 	.col {
 		display: flex;
 		justify-content: space-between;

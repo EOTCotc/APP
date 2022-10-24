@@ -17,7 +17,7 @@
 					:password-icon="passwordIcon1" />
 			</u-form-item>
 			<u-form-item label="" prop="Tpassword">
-				<u-input v-model="form.Tpassword" placeholder="输入密码" :type="type2" @blur="input"
+				<u-input v-model="form.Tpassword" placeholder="确认密码" :type="type2" @blur="input"
 					:password-icon="passwordIcon2" />
 			</u-form-item>
 		</u-form>
@@ -47,9 +47,8 @@
 				passwordIcon2: true,
 				titleColor: '#333333',
 				homeTitle: '交易密码',
-				// localStorage.getItem(user.mail) || 
 				form: {
-					mobile: '2356535286@qq.com',
+					mobile: '',
 					code: '',
 					password: '',
 					Tpassword: '',
@@ -64,6 +63,8 @@
 				op2: false,
 				op3: false,
 				timer: null,
+				timer2:null,
+				timer3:null,
 				rules: {
 					code: [{
 						type: 'string',
@@ -138,7 +139,9 @@
 			clearTimeout(this.timer)
 			this.$refs.form1.setRules(this.rules)
 		},
-
+		created() {
+			this.form.mobile=uni.getStorageSync('user') ? uni.getStorageSync('user').mail　: ''
+		},
 		methods: {
 			about() {
 				uni.reLaunch({
@@ -191,31 +194,46 @@
 			submit() {
 				this.sub = true
 				clearTimeout(this.timer)
+				clearTimeout(this.timer2)
+				clearTimeout(this.timer3)
 				this.$refs.form1.validate(valid => {
 					if (valid) {
 						console.log('验证通过');
-						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.$md5(this.form.Tpassword)+'uEe',code:this.form.code}).then((res)=>{
+						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.$md5(this.form.Tpassword +'uEe'),code:this.form.code}).then((res)=>{
 							console.log(res)
-							uni.showLoading({
-								title: '设置成功'
-							})
-							this.timer = setTimeout(() => {
-								this.sub = false
-								uni.reLaunch({
-									url: '/pages/user/index'
+							if(res.code==0){
+								uni.showLoading({
+									title: '设置成功'
 								})
-								uni.hideLoading();
-							}, 1000)
+								this.timer = setTimeout(() => {
+									this.sub = false
+									uni.reLaunch({
+										url: '/pages/user/index'
+									})
+									uni.hideLoading();
+								}, 1000)
+							}else{
+								uni.showLoading({
+									title: '验证码错误！'
+								})
+								this.timer2=setTimeout(() => {
+									this.sub = false
+									uni.hideLoading();
+								}, 1000)
+							}
+							// clearTimeout(timer)
+							
 						})
 					} else {
 						console.log('验证失败');
 						uni.showLoading({
 							title: '设置失败'
 						})
-						setTimeout(() => {
+						this.timer3=setTimeout(() => {
 							this.sub = false
 							uni.hideLoading();
 						}, 1000)
+						
 					}
 				});
 

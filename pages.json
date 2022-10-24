@@ -7,15 +7,7 @@
 		// npm安装方式
 		// "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
-	"pages": [{
-			"path": "pages/login/index",
-			"style": {
-				// #ifdef H5
-				"titleNView": false,
-				// #endif
-				"enablePullDownRefresh": false
-			}
-		}, {
+	"pages": [ {
 			"path": "pages/index/default/default",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -26,6 +18,15 @@
 				"enablePullDownRefresh": true
 			}
 		},
+		{
+				"path": "pages/login/index",
+				"style": {
+					// #ifdef H5
+					"titleNView": false,
+					// #endif
+					"enablePullDownRefresh": false
+				}
+			},
 		{
 			"path": "pages/index/default/shopHome",
 			"style": {

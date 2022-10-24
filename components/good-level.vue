@@ -1,8 +1,8 @@
 <template>
 	<view class="good-tag-level">
-		<view class="level1" v-if="level === 1">初级</view>
-		<view class="level2" v-if="level === 2">中级</view>
-		<view class="level3" v-if="level === 3">高级</view>
+		<view class="level1" v-if="level === 0">初级</view>
+		<view class="level2" v-if="level === 1">中级</view>
+		<view class="level3" v-if="level === 2">高级</view>
 	</view>
 </template>
 

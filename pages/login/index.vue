@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<view class="top">
 			<view>
-				<img src="@/static/images/buy/logo.png">
+				<u-image src="@/static/images/buy/logo.png" width="100" mode="widthFix"></u-image>
 			</view>
 			<view class="app-name">EOTC</view>
 		</view>
@@ -53,7 +53,7 @@
 		methods: {
 			// 登录
 			login() {
-				this.form.password = this.$md5(this.form.password)
+				this.form.password = this.$md5(this.form.password +'uEe')
 				this.$u.api.login(this.form).then(res => {
 					console.log(res);
 					if (res.code == 0) {
@@ -94,10 +94,8 @@
 	.top {
 		margin-top: 60rpx;
 		text-align: center;
-
-		img {
-			width: 121rpx;
-			height: 121rpx;
+		.u-image{
+			margin: auto;
 		}
 
 		.app-name {

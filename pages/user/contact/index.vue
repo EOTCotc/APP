@@ -2,7 +2,7 @@
 	<view class="contact_wrap">
         <u-navbar :is-back="true" back-icon-color="#333" title="联系我们" :custom-back="about"></u-navbar>
 		<view class="main">
-			<img class="logo" src="../../../static/images/my/lian_logo.png" mode="widthFix">
+			<u-image class="logo" src="@/static/images/buy/logo.png" width="120" mode="widthFix"></u-image>
 			<view class="name">EOTC</view>
 			<view class="version">V2.0版本</view>
 		</view>

@@ -9,19 +9,17 @@
         <u-navbar :is-back="false" :title="homeTitle" :background="background" :title-color="titleColor" :custom-back="about"></u-navbar>
         <!--首页模块化组合组件-->
         <coreshopPage :coreshopdata="pageData"></coreshopPage>
-        <!--版权组件-->
-        <copyright></copyright>
 		<biqiu-tarbar :active="active"></biqiu-tarbar>
         <!--客服组件-->
-        <button class="floatingButton" hover-class="none" open-type="contact" bindcontact="showChat" :session-from="kefupara">
+       <!-- <button class="floatingButton" hover-class="none" open-type="contact" bindcontact="showChat" :session-from="kefupara">
             <u-icon name="server-man" color="#e54d42" size="60"></u-icon>
-        </button>
+        </button> -->
         <!--返回顶部组件-->
         <u-back-top :scroll-top="scrollTop" :duration="500"></u-back-top>
         <!--弹出框-->
         <!--<coreshop-modal-img :show="modalShow"  :src="$globalConstVars.apiFilesUrl+'/static/images/empty/reward.png'" @imgTap="imgTap" @closeTap="closeTap" />-->
         <!-- 登录提示 -->
-        <coreshop-login-modal></coreshop-login-modal>
+        <!-- <coreshop-login-modal></coreshop-login-modal> -->
     </view>
 </template>
 <script>
@@ -31,6 +29,8 @@
     import copyright from '@/components/coreshop-copyright/coreshop-copyright.vue';
     import modalImg from '@/components/coreshop-modal-img/coreshop-modal-img.vue';
     import { goods } from '@/common/mixins/mixinsHelper.js';
+	import { transformSrc } from "@/common/utils/transform.js"
+	
     export default {
         mixins: [goods],
         components: {
@@ -69,26 +69,7 @@
 							column: 2,
 							title: '热门课程',
 							display: 'list',
-							list: [
-								{
-									image: "/static/images/good/img1.png",
-									name: '缠论初级课程',
-									price: '1000',
-									level: 1
-								},
-								{
-									image: "/static/images/good/img1.png",
-									name: '缠论中级课程',
-									price: '5000',
-									level: 2
-								},
-								{
-									image: "/static/images/good/img1.png",
-									name: '缠论高级课程',
-									price: '10000',
-									level: 3
-								}
-							]
+							list: []
 						}
 					}
 				],
@@ -135,6 +116,7 @@
             console.log("数据：" + this.$globalConstVars.apiFilesUrl);
         },
         methods: {
+			transformSrc,
             about() {
 
             },
@@ -157,35 +139,11 @@
                 uni.showLoading({
                     title: '加载中'
                 });
-                //获取首页配置
-                this.$u.api.getPageConfig({ code: this.pageCode }).then(res => {
-                    if (res.status == true) {
-                        this.pageData = res.data.items;
-
-                        if (res.data.items.length > 0) {
-                            for (var i = 0; i < res.data.items.length; i++) {
-                                if (res.data.items[i].widgetCode == 'topImgSlide') {
-                                    var data = res.data.items[i].parameters.list;
-                                    for (var i = 0; i < data.length; i++) {
-                                        let moder = {
-                                            image: data[i].image == '/images/empty-banner.png' ? '/static/images/common/empty-banner.png' : data[i].image,
-                                            bg: data[i].bg == '/images/empty-banner.png' ? '/static/images/common/empty-banner.png' : data[i].bg,
-                                            opentype: 'click',
-                                            url: '',
-                                            title: data[i].linkType,
-                                            linkType: data[i].linkType,
-                                            linkValue: data[i].linkValue,
-                                        }
-                                        this.swiperItems.push(moder);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    setTimeout(function () {
-                        uni.hideLoading();
-                    }, 1000);
-                });
+				
+                //获取课程列表
+                this.$u.api.getCourse().then(res => {
+					this.pageData[1].parameters.list = res.items.map(item => ({...item, images: item.images.split(',').map(img => this.transformSrc(img))}))
+				})
 
                 var _this = this;
                 if (this.$db.get('userToken')) {
@@ -317,15 +275,3 @@
         },
     };
 </script>
-
-<style lang="scss">
-	.a {
-		position: fixed;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		z-index: 99999;
-		background-color: red;
-		height: 100rpx;;
-	}
-</style>

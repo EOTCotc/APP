@@ -17,7 +17,7 @@
 			</view>
 
 			<view class="bg-purple-dark list">
-				<u-image src="../../static/images/game/img4.png" width="175rpx" height="130rpx" border-radius="25rpx">
+				<u-image src="../../static/images/game/img3.png" width="175rpx" height="130rpx" border-radius="25rpx">
 				</u-image>
 				<view class="text">幸运大翻盘</view>
 				<button size="mini" style="background-color: #C4C4C4  ;" disabled @click=" bigreversal ">暂未开始</button>
@@ -26,13 +26,13 @@
 		</view>
 		<view class="box2">
 			<view class=" bg-purple-red list">
-				<u-image src="../../static/images/game/img5.png" width="175rpx" height="130rpx" border-radius="25rpx">
+				<u-image src="../../static/images/game/img4.png" width="175rpx" height="130rpx" border-radius="25rpx">
 				</u-image>
 				<view class="text">刮刮乐</view>
 				<button size="mini" style="background-color: #C4C4C4 ;" disabled>暂未开始</button>
 			</view>
 			<view class="bg-purple-yellow list">
-				<u-image src="../../static/images/game/img3.png" width="175rpx" height="130rpx" border-radius="25rpx">
+				<u-image src="../../static/images/game/img5.png" width="175rpx" height="130rpx" border-radius="25rpx">
 				</u-image>
 				<view class="text">全民抓福袋</view>
 				<button size="mini" style="background-color: #C4C4C4  ;" disabled>暂未开始</button>
@@ -99,6 +99,7 @@
 		color: #fff;
 		width: 170rpx;
 		border-radius: 20rpx;
+		font-size: 23rpx;
 	}
 
 	uni-button[disabled]:not([type]) {
