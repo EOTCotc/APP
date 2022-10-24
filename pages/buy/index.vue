@@ -2,12 +2,12 @@
 	<view class="container">
 		<u-toast ref="uToast" />
 		<u-no-network></u-no-network>
-		<u-navbar title-bold back-icon-color='#fff' title='购买' title-color='#fff' :background='{background:"#0A0E29"}'></u-navbar>
+		<u-navbar title-bold back-icon-color='#fff' :border-bottom="false" title='购买' title-color='#fff' :background='{background:"#0A0E29"}' :custom-back="about"></u-navbar>
 		<img class='index_buy' src="@/static/images/buy/index_buy.png" alt="">
 		<view class="content">
 			<view class="title">全球首个区块链缠论指标系统</view>
 			<view class="account-box" >
-				<view class="account" v-for="item,index in arr"  :class="{selected:isSelected}"  @click="handleSelected(index)">
+				<view class="account" v-for="item,index in arr"  :class="{selected:isSelected==index}"  @click="handleSelected(index,item)">
 					<view v-if="item.type==0">1个月</view>
 					<view v-if="item.type==1">12个月</view>
 					<view>
@@ -27,7 +27,8 @@
 			</view>
 		</view>
 		<view class="buy">
-			<button @click="btn_buy()">购买</button>
+			<button class="btn" :disabled="true"   @click="btn_buy()">暂未开售</button>
+			<!-- <button @click="btn_buy()">购买</button> -->
 		</view>
 	</view>
 </template>
@@ -36,29 +37,30 @@
 	export default {
 		data() {
 			return {
-				isSelected: false,
-				// month:"",//月
-				// jifen:"",//积分
+				isSelected: 0,
+				month:undefined,//月
+				jifen:undefined,//积分
+				id:'',
 				arr:[]
 			}
 		},
 		created() {
 			this.$u.api.getClsystem().then(res=>{
 				this.arr=res.items;
-				this.arr.map(item=>{
-					this.$set(item,'isSelected',false)
-				})
-				console.log(this.arr)
+				// this.arr.map(item=>{
+				// 	this.$set(item,'isSelected',false)
+				// })
+				this.month=this.arr[0].type==0?'1':'12';
+				this.jifen=this.arr[0].price;
 			})
 		},
 		methods: {
-			handleSelected(index) {
-				this.arr[index].isSelected = true;
-				this.isSelected=this.arr[index].isSelected;
-								// this.list.map((val, idx) => {
-								// 	if (index != idx) this.list[idx].show = false;
-								// })
-
+			handleSelected(index,item) {
+				this.isSelected=index;
+				this.month=item.type==0?'1':'12';
+				this.jifen=item.price;
+				this.id=item.clSystemId;
+				console.log(this.month,this.jifen,this.id)
 				// this.isSelected=isSelected
 				// if(this.isSelected1){
 				// 	this.month=1;
@@ -71,9 +73,15 @@
 			btn_buy(){
 					console.log()
 					uni.navigateTo({
-						url: `/pages/subOrder/index?month=${this.month}&total=${this.jifen}`
+						url: `/pages/subOrder/index?month=${this.month}&total=${this.jifen}&rid=${this.id}`
 					})
-			}
+			},
+			
+			about() {
+				uni.reLaunch({
+					url: '/pages/index/default/default'
+				})
+			},
 		}
 	}
 </script>
@@ -159,15 +167,23 @@
 		width: 100%;
 		height: 130rpx;
 		box-shadow: 0 -3rpx 16rpx 1rpx rgba(0, 0, 0, 0.03);
-
-		button {
+		.btn{
 			width: 100%;
 			height: 100%;
 			font-size: 32rpx;
 			color: #fff;
 			line-height: 96rpx;
 			border-radius: 48rpx;
-			background: linear-gradient(128deg, #FD5009 0%, #FF8000 100%);
+			background: #D8D8D8;
 		}
+		// button {
+		// 	width: 100%;
+		// 	height: 100%;
+		// 	font-size: 32rpx;
+		// 	color: #fff;
+		// 	line-height: 96rpx;
+		// 	border-radius: 48rpx;
+		// 	background: linear-gradient(128deg, #FD5009 0%, #FF8000 100%);
+		// }
 	}
 </style>

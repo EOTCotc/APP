@@ -19,13 +19,13 @@
 			<view class="shang">
 				<u-image width="200rpx" height="200rpx" src="../../../static/images/my/chu.png"></u-image>
 				<view class="deta_wen">
-					<text>缠论初级课程</text>
-					<text>1000U积分</text>
+					<text>{{list.clSystem.name}}</text>
+					<text>{{list.clSystem.price}}U积分</text>
 				</view>
 			</view>
 			<view class="ji_fen">
 				<view>总价</view>
-				<view style="color:#FD5009;font-weight: 600;">1000U积分</view>
+				<view style="color:#FD5009;font-weight: 600;">{{list.clSystem.price*list.quantity}}U积分</view>
 			</view>
 			<view class="ji_fen">
 				<view>订单编号</view>

@@ -874,38 +874,26 @@ const install = (Vue, vm) => {
 		needToken: true
 	});
 	//获取订单信息
-	let getOrderbyuser = (params = {}) => vm.$u.get('/api/order/getorderbyuserid', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
-	});
-	//获取订单
-	let getOrderby = (params = {}) => vm.$u.get('/api/order/orderbyid', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-	});
-	//支付订单
-	let payorder = (params = {}) => vm.$u.post('/api/order/payorder?orderid=' + params.orderid, params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-	});
-	//取消订单
-	let cancelorder = (params = {}) => vm.$u.post('/api/order/cancelorder?orderid=' + params.orderid, params,
-		Headers = {
-			'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-		});
-	//添加订单
-	let apporder = (params = {}) => vm.$u.post('/api/order/order', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-	});
-	//修改用户订单信息
-	let updateOrder = (params = {}) => vm.$u.put('/api/order/orderuser', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-	})
-	//获取公告
-	let getNotice = (params = {}) => vm.$u.get('/api/notice/notice', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
-	})
-	//获取公告详情
-	let noticebyId = (params = {}) => vm.$u.get('/api/notice/noticebyid', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjYxNDMwNjQsImV4cCI6MTY2ODczNTA2NCwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.if1ge1jkegAMYK8Lc6w8ETX8eny37qkD_1RBE8XRCT8'
-	})
+	 let getOrderbyuser = (params = {}) => vm.$u.get('/api/order/getorderbyuserid', params, Headers = {
+	  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
+	 });
+	 //获取订单
+	 let getOrderby = (params = {}) => vm.$u.get('/api/order/orderbyid', params, Headers = {
+	  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
+	 });
+	 //支付订单
+	 let payorder = (params = {}) => vm.$u.post('/api/order/payorder?orderid=' + params.orderid, params, Headers = {
+	  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
+	 });
+	 //取消订单
+	 let cancelorder = (params = {}) => vm.$u.post('/api/order/cancelorder?orderid=' + params.orderid, params,
+	  Headers = {
+	   'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
+	  });
+	 //修改用户订单信息
+	 let updateOrder=(params={})=>vm.$u.put('/api/order/orderuser',params,{
+			needToken: true
+		})
 	// 获取验证码
 		let getcode = (params = {}) => vm.$u.get('/api/user/getcode', params, {
 			needToken: false
@@ -920,24 +908,35 @@ const install = (Vue, vm) => {
 		})
 	//添加订单
 	let addOrder = (params = {}) => vm.$u.post('/api/order/order', params, {needToken: true})
-	//获取系统
-	let getClsystem = (params = {}) => vm.$u.get('/api/clsystem/clsystem', params, Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
-	})
+	
+	//获取用户信息
+	 let getuserinfo=(params={})=>vm.$u.get('/api/user/getuserinfo',params,Headers = {
+	  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
+	 })
+	 //获取系统
+	  let getClsystem=(params={})=>vm.$u.get('/api/clsystem/clsystem',params,Headers = {
+	   'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
+	  })
 // 设置APP支付密码
 	let setPayPassword = (params = {}) => vm.$u.post('/api/user/setpaypassword', params , {needToken: true})
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
+		getuserinfo,
+		  getClsystem,
+		  addOrder,
+		  getcode,
+		  login,
+		  updateOrder,
+		  getOrderbyuser,
+		  getOrderby,
+		  payorder,
+		  cancelorder,
 		setPayPassword,
 		forgotPWD,
-		getClsystem,
 		addOrder,
 		getcode,
 		login,
-		noticebyId,
-		getNotice,
 		updateOrder,
-		apporder,
 		getOrderbyuser,
 		getOrderby,
 		payorder,

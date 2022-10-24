@@ -4,7 +4,9 @@
 		<u-navbar :is-back="true" :title="homeTitle" :custom-back="about"></u-navbar>
 
 		<view>
-			<u-tabs :list="tab.data" :is-scroll="false" :current="tab.active" @change="change"></u-tabs>
+				<u-image width="50%" height="240rpx" style="margin:30% auto 0;" mode="widthFix" src="../../../static/images/my/notdata.png"></u-image>
+				<view style="text-align:center;color:#999">暂无订单信息</view>
+			<!-- <u-tabs :list="tab.data" :is-scroll="false" :current="tab.active" @change="change"></u-tabs>
 			<view v-for="item in orderArr">
 				<u-card :title="item.orderId" @click="detail(item.orderId)" sub-title-size="30rpx"
 					:sub-title="item.status==0?'待支付':item.status==1?'已支付':'已取消'" :foot-border-top="false"
@@ -16,21 +18,21 @@
 								<u-image width="160rpx" height="160rpx" src="../../../static/images/my/chu.png">
 								</u-image>
 								<view class="wen" v-if="item.orderType==0">
-									<text>币秋缠论指标系统</text>
-									<text>1000U积分/月</text>
+									<text>{{item.course.name}}</text>
+									<text>{{item.course.price}}U积分/月</text>
 									<text class="hui">{{item.createDate|timeFormat('yyyy/mm/dd hh:ss')}}</text>
 								</view>
 								<view class="wen" v-if="item.orderType==1">
-									<text>币秋缠论指标系统</text>
-									<text>1000U积分/月</text>
+									<text>{{item.clSystem.name}}</text>
+									<text>{{item.clSystem.price}}U积分/月</text>
 									<text>{{item.createDate|timeFormat('yyyy/mm/dd hh:ss')}}</text>
 								</view>
 							</view>
-							<view class="num">x2</view>
+							<view class="num" v-if="item.quantity!=0">x{{item.quantity}}</view>
 						</view>
-						<view class="total" v-if="item.orderType==0">总价:<text style="color:#FD5009">1111U积分</text>
+						<view class="total" v-if="item.orderType==0">总价:<text style="color:#FD5009">{{item.course.price*item.quantity}}U积分</text>
 						</view>
-						<view class="total" v-if="item.orderType==1">总价:<text style="color:#FD5009">222U积分</text></view>
+						<view class="total" v-if="item.orderType==1">总价:<text style="color:#FD5009">{{item.clSystem.price*item.quantity}}U积分</text></view>
 						<view class="btn" v-if="item.status==0">
 							<u-button shape="circle" type="primary" class="btn_qu" hover-class="none"
 								@click="cencle(item.orderId)">取消</u-button>
@@ -40,8 +42,8 @@
 						</view>
 					</view>
 				</u-card>
-			</view>
-		</view>
+			</view>-->
+		</view> 
 	</view>
 </template>
 

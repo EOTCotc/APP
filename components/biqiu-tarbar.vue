@@ -28,7 +28,7 @@
 						type: 'reLaunch'
 					},
 					{
-						path: '/pages/index/default/shopHome',
+						path: '/pages/mall/index/index',
 						name: 'E商城',
 						icon: '/static/images/common/shop',
 						type: 'reLaunch'

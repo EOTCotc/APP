@@ -4,8 +4,8 @@
 			<view class="account">
 				<u-image width="100rpx" height="100rpx" src="../../static/images/my/logo.png"></u-image>
 				<view class="user">
-					<text style="font-weight: 600;">1234569824@qq.com</text>
-					<text>UID:3135468</text>
+					<text style="font-weight: 600;">{{user.mail}}</text>
+					<text>UID:{{user.uid}}</text>
 				</view>
 			</view>
 			<view class="integral">
@@ -17,9 +17,6 @@
 					<text>U积分</text>
 					<text class="num">100</text>
 				</view>
-			</view>
-			<view class="notice" >
-				<u-notice-bar @click="notice()" type="none" mode="horizontal" :is-circular="false" :list="list" bg-color="#F5F6F7" border-radius="20" padding="32rpx 20rpx"></u-notice-bar>
 			</view>
 			<view >
 				<u-cell-group :border="false">
@@ -77,7 +74,16 @@
 				conStyle: {
 					color: "#FD5009"
 				},
+				user:{}
+				
 			}
+		},
+		created(){
+			this.$u.api.getuserinfo().then(res=>{
+				this.user=res.items;
+				console.log(this.user)
+				localStorage.setItem("user",JSON.stringify(this.user))
+			})
 		},
 		methods: {
 			about() {},
@@ -95,7 +101,11 @@
 			},
 			//退出确定
 			confirm(){
-				console.log(111)
+				localStorage.removeItem('userToken')
+				localStorage.removeItem('__DC_STAT_UUID')
+				uni.redirectTo({
+					url:'/pages/login/index'
+				})
 			},
 			//抽奖记录
 			refflere(){
@@ -113,12 +123,6 @@
 			contact(){
 				uni.redirectTo({
 					url:'/pages/user/contact/index'
-				})
-			},
-			//公告
-			notice(){
-				uni.redirectTo({
-					url:'/pages/user/notice/index'
 				})
 			},
 			//我的订单
@@ -154,6 +158,7 @@
 		clear: both;
 		display: flex;
 		justify-content: space-around;
+		margin-bottom: 20rpx;
 		.one {
 			width: 43%;
 			height: 145rpx;

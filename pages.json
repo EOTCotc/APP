@@ -191,7 +191,27 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/mall/index/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		   "path": "pages/mall/index/index",
+		   "style": {
+		    "navigationBarTextStyle": "white",
+		    "navigationBarTitleText": "商城",
+		    // #ifdef H5
+		    "titleNView": false,
+		    // #endif
+		    "enablePullDownRefresh": true
+		   }
+		  }
+    ],
 "subpackages": [{
 		"root": "pages/share",
 		"name": "share",

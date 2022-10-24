@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<u-no-network></u-no-network>
 		<u-navbar title-bold :border-bottom='false' title='提交订单' title-color='#333'
-			:background='{background:"#F5F6F7"}'>
+			:background='{background:"#F5F6F7"}' :custom-back="about">
 		</u-navbar>
 		<view class="content">
 			<!-- 购买的东西 -->
@@ -61,16 +61,16 @@
 			<view class="popup-content">
 				<u-icon name="close" @click='showPopup=false'></u-icon>
 				<view class="popup-type">待支付</view>
-				<view class="popup-price">{{total}}U积分</view>
+				<view class="popup-price">{{sum}}U积分</view>
 				<view class="popup-num">
 					<span>币秋缠论指标系统/月</span>
-					<span>×2</span>
+					<span>×{{num}}</span>
 				</view>
 				<view class="popup-pay-type">
 					<span>余额<span>(余额不足)</span></span>
 					<span>1600U积分</span>
 				</view>
-				<button >支付</button>
+				<u-button :disabled="true" @click="zhifu">支付</u-button>
 			</view>
 		</u-popup>
 		<!-- 弹出层(支付) -->
@@ -108,35 +108,47 @@
 				showPopup2: false, //支付密码弹框
 				month: "",
 				total: "",
-				sum:''
+				sum:'',
+				rid:''
 			}
 		},
 		onLoad(option) {
+			this.rid=option.rid;
 			this.total = option.total;
 			this.month = option.month;
+			this.sum=parseInt(this.total*this.num);
 		},
-		// watch:{
-		// 	num:{
-		// 		this.sum=parseInt(this.total*this.num)
-		// 	}
-		// },
+		watch:{
+			num:function(val){
+				console.log(val)
+				this.sum=parseInt(this.total*val);
+			}
+		},
 		
 		methods: {
 			submit() {
-				console.log(this.num);
-				this.$u.api.addOrder({
-					rid: "string",
-					orderType: 1,
-					name: this.form.name,
-					phone: this.form.phone,
-					wechat: this.form.wechat,
-					quantity: this.num
-				}).then(res => {
-					console.log(res)
-				})
-				this.showPopup = true;
+				// console.log(this.num);
+				// this.$u.api.addOrder({
+				// 	rid:this.rid,
+				// 	orderType: 1,
+				// 	name: this.form.name,
+				// 	phone: this.form.phone,
+				// 	wechat: this.form.wechat,
+				// 	quantity: this.num
+				// }).then(res => {
+				// 	console.log(res)
+				// })
+				// this.showPopup = true;
 			},
-		
+			
+			about() {
+				uni.reLaunch({
+					url: '/pages/buy/index'
+				})
+			},
+			zhifu(){
+				console.log(111)
+			}
 		}
 	}
 </script>
