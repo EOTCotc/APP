@@ -895,50 +895,45 @@ const install = (Vue, vm) => {
 		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
 	});
 	//修改用户订单信息
-	let updateOrder=(params={})=>vm.$u.put('/api/order/orderuser',params,Headers = {
+	let updateOrder = (params = {}) => vm.$u.put('/api/order/orderuser', params, Headers = {
 		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
 	})
 	//获取公告
-	let getNotice=(params={})=>vm.$u.get('/api/notice/notice',params,Headers = {
+	let getNotice = (params = {}) => vm.$u.get('/api/notice/notice', params, Headers = {
 		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY0MzA5OTYsImV4cCI6MTY2OTAyMjk5NiwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.o_CMyCVBdNN_8QMmLe1EFBwjYQM0fHdAuusIzd19yfg'
 	})
 	//获取公告详情
-	let noticebyId=(params={})=>vm.$u.get('/api/notice/noticebyid',params,Headers = {
+	let noticebyId = (params = {}) => vm.$u.get('/api/notice/noticebyid', params, Headers = {
 		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjYxNDMwNjQsImV4cCI6MTY2ODczNTA2NCwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.if1ge1jkegAMYK8Lc6w8ETX8eny37qkD_1RBE8XRCT8'
 	})
 	// 获取验证码
-	let getcode = (params = {}) => vm.$u.get('/api/user/getcode', params, {needToken: false})
-	// 登录
-	let login = (params = {}) => vm.$u.post('/api/user/login', params, {needToken: false})
+		let getcode = (params = {}) => vm.$u.get('/api/user/getcode', params, {
+			needToken: false
+		})
+		// 登录
+		let login = (params = {}) => vm.$u.post('/api/user/login', params, {
+			needToken: false
+		})
+		// 找回密码
+		let forgotPWD = (params = {}) => vm.$u.post('/api/user/retrievepassword', params, {
+			needToken: false
+		})
 	//添加订单
-	let addOrder=(params={})=>vm.$u.post('/api/order/order',params,Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
-	})
+	let addOrder = (params = {}) => vm.$u.post('/api/order/order', params, {needToken: true})
 	//获取系统
-	let getClsystem=(params={})=>vm.$u.get('/api/clsystem/clsystem',params,Headers = {
+	let getClsystem = (params = {}) => vm.$u.get('/api/clsystem/clsystem', params, Headers = {
 		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
 	})
-	// 设置APP支付密码
-	let setPayPassword = (params = {}) => vm.$u.post('/api/user/setpaypassword', params ,Headers = {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1OTk0MTEsImV4cCI6MTY2OTE5MTQxMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.QA4yk0tRRagDm8AF0Ct9IiW4JDeQPVGUdOTH2WirisM'})
-	// 用户注册（废弃，改为自动获取app数据及使用短信验证码登录）建议直接使用smsLogin接口
-	//let reg  = (params = {}) => vm.$u.post('/Api/Common/InterFaceTest', params, { method: 'user.reg', needToken: true });
-	// 用户登录(废弃，改为短信验证码登录)
-	//let login  = (params = {}) => vm.$u.post('/Api/Common/InterFaceTest', params, { method: 'user.login', needToken: true });
-	// 获取用户信息(废弃)
-	// let trustLogin  = (params = {}) => vm.$u.post('/Api/Common/InterFaceTest', params, { method: 'user.trustcallback', needToken: true });
-	// 订单售后状态(废弃方法，建议直接用order.details接口)
-	// let afterSalesStatus  = (params = {}) => vm.$u.post('/Api/Common/InterFaceTest', params, { method: 'order.aftersalesstatus', needToken: true });
-	// 我的积分（弃用）
-	//let myPoint  = (params = {}) => vm.$u.post('/Api/Common/InterFaceTest', params, { method: 'user.mypoint', needToken: true });
-
+// 设置APP支付密码
+	let setPayPassword = (params = {}) => vm.$u.post('/api/user/setpaypassword', params , {needToken: true})
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
+		setPayPassword,
+		forgotPWD,
 		getClsystem,
 		addOrder,
 		getcode,
 		login,
-		setPayPassword,
 		noticebyId,
 		getNotice,
 		updateOrder,

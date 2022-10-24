@@ -14,6 +14,8 @@ import * as CoreTheme from '@/common/setting/coreThemeHelper.js'
 
 import store from '@/common/store'
 
+import md5 from '@/common/md5/md5.min.js'
+
 //引入全局uView
 import uView from 'uview-ui';
 Vue.use(uView);
@@ -25,11 +27,11 @@ Vue.mixin(mpShare)
 
 //全局引用常量配置文件,用于template内代码使用
 Vue.mixin({
-    data() {
-        return {
-            $globalConstVars: GlobalConstVars
-        }
-    }
+	data() {
+		return {
+			$globalConstVars: GlobalConstVars
+		}
+	}
 });
 
 Vue.config.productionTip = false
@@ -40,9 +42,10 @@ Vue.prototype.$globalConstVars = GlobalConstVars;
 Vue.prototype.$coreTheme = CoreTheme;
 Vue.prototype.$store = store;
 App.mpType = 'app'
+Vue.prototype.$md5 = md5
 
 const app = new Vue({
-    ...App
+	...App
 })
 
 // http拦截器

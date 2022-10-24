@@ -30,7 +30,7 @@
 		</view>
 		<u-empty mode="data" :margin-top="400"></u-empty>
 		<u-loadmore :status="status" />
-		<u-back-top :scroll-top="scrollTop" top="600" ></u-back-top>
+		<!-- <u-back-top :scroll-top="scrollTop" top="600" ></u-back-top> -->
 	</view>
 </template>
 

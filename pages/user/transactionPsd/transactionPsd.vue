@@ -47,8 +47,9 @@
 				passwordIcon2: true,
 				titleColor: '#333333',
 				homeTitle: '交易密码',
+				// localStorage.getItem(user.mail) || 
 				form: {
-					mobile: localStorage.getItem(user.mail),
+					mobile: '2356535286@qq.com',
 					code: '',
 					password: '',
 					Tpassword: '',
@@ -193,7 +194,7 @@
 				this.$refs.form1.validate(valid => {
 					if (valid) {
 						console.log('验证通过');
-						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.form.Tpassword,code:this.form.code}).then((res)=>{
+						this.$u.api.setPayPassword({mail:this.form.mobile,payPassWord:this.$md5(this.form.Tpassword),code:this.form.code}).then((res)=>{
 							console.log(res)
 							uni.showLoading({
 								title: '设置成功'
@@ -267,8 +268,7 @@
 
 	::v-deep .u-form-item__message[data-v-006449ec] {
 		padding-left: 0 !important;
-	}
-
+		}
 	.footer {
 		padding: 0 20rpx;
 		width: 100%;

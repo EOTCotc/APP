@@ -4,7 +4,8 @@
 		<u-navbar :is-back="false" :title="homeTitle" :title-color="titleColor"></u-navbar>
 		<view class="box1">
 			<view class="bg-purple list">
-				<u-image src="../../static/images/game/img1.png" width="175rpx" height="130rpx" border-radius="25rpx"></u-image>
+				<u-image src="../../static/images/game/img1.png" width="175rpx" height="130rpx" border-radius="25rpx">
+				</u-image>
 				<view class="text">幸运大转盘</view>
 				<button size="mini" style="background-color: #C4C4C4  ;" disabled @click="spinwin">暂未开始</button>
 			</view>

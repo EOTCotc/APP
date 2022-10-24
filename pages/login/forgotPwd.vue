@@ -26,14 +26,14 @@
 					</view>
 					<u-form-item label=" " prop='password' :label-style='{padding:"0"}' label-position='top'
 						:border-bottom='false'>
-						<u-input v-model="form.password" border :clearable='false' :custom-style='inputStyle2'
-							placeholder='请输入新密码' />
+						<u-input type='password' v-model="form.newPassWord" border :clearable='false'
+							:custom-style='inputStyle2' :password-icon='false' placeholder='请输入新密码' />
 					</u-form-item>
 				</view>
 				<!-- 确认新密码 -->
 				<u-form-item label="确认新密码" prop='confirmPwd' label-position='top' :border-bottom='false'>
-					<u-input v-model="form.confirmPwd" border :clearable='false' :custom-style='inputStyle2'
-						placeholder='请确认新密码' />
+					<u-input type='password' v-model="form.confirmPwd" border :clearable='false'
+						:custom-style='inputStyle2' :password-icon='false' placeholder='请确认新密码' />
 				</u-form-item>
 			</u-form>
 			<button class="sub" @click="submit">提交</button>
@@ -58,7 +58,7 @@
 				form: {
 					mail: '',
 					code: '',
-					password: '',
+					newPassWord: '',
 					confirmPwd: '',
 				},
 				rules: {
@@ -82,7 +82,7 @@
 						message: '请填写验证码',
 						trigger: 'blur'
 					}],
-					password: [{
+					newPassWord: [{
 						required: true,
 						message: '请填写新密码',
 						trigger: 'blur'
@@ -101,7 +101,7 @@
 						trigger: 'blur'
 					}, {
 						validator: (rule, value, callback) => {
-							value = this.form.password == this.form.confirmPwd
+							value = this.form.newPassWord == this.form.confirmPwd
 							return value;
 						},
 						message: '两次密码输入不一致',
@@ -127,15 +127,26 @@
 							clearInterval(timer)
 						}
 					}, 1000)
+					this.getCode()
 				}
+			},
+			getCode() {
+				this.$u.api.getcode({
+					mail: this.form.mail,
+					type: 1
+				}).then(res => {
+
+				})
 			},
 			submit() {
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
-						delete this.form.confirmPwd
+						// delete this.form.confirmPwd
 						console.log('验证通过');
+						this.form.newPassWord = this.$md5(this.form.newPassWord)
+						this.form.confirmPwd = this.$md5(this.form.confirmPwd)
 						this.$u.api.forgotPWD(this.form).then(res => {
-							if (res.data.code == 0) {
+							if (res.code == 0) {
 								this.$refs.uToast.show({
 									title: '找回成功',
 									type: 'success',

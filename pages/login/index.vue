@@ -14,15 +14,10 @@
 					<u-form-item label="邮箱地址" label-position='top' :border-bottom='false'>
 						<u-input v-model="form.mail" :clearable='false' :custom-style="inputStyle1"
 							placeholder='请输入邮箱地址' />
-						<view class="send-code">
-							<u-button size='mini' @click='getCode' :custom-style='btnStyle' hover-class='none'>
-								{{codeBtnText}}
-							</u-button>
-						</view>
 					</u-form-item>
-					<u-form-item label="邮箱验证码" label-position='top' :border-bottom='false'>
-						<u-input v-model="form.code" :clearable='false' :custom-style="inputStyle2"
-							placeholder='请输入邮箱验证码' />
+					<u-form-item label="密码" label-position='top' :border-bottom='false'>
+						<u-input type='password' v-model="form.password" :clearable='false' :custom-style="inputStyle2"
+							placeholder='请输入密码' />
 					</u-form-item>
 				</u-form>
 			</view>
@@ -49,67 +44,29 @@
 					border: '1px solid #C8CFDE',
 					borderRadius: '16rpx'
 				},
-				btnStyle: {
-					width: '160rpx',
-					height: '72rpx',
-					border: 'none',
-					background: '#1B2945',
-					color: '#fff',
-				},
-				codeBtnText: '发送验证码',
-				codeBtnNum: 60,
-				isCodeBtn: true,
 				form: {
 					mail: '',
-					code: '',
+					password: '',
 				}
 			}
 		},
-		mounted() {
-			let mymap = new Map()
-			mymap.set(0, 'zero')
-			mymap.set(1, 'one')
-			mymap.set('fun', function() {
-				return 123;
-			})
-			console.log(mymap.length);
-		},
 		methods: {
-			// 获取验证码
-			getCode() {
-				if (this.form.mail && this.isCodeBtn) {
-					this.isCodeBtn = false //倒计时禁用按钮
-					this.btnStyle.background = '#8C93A1'
-					let timer = setInterval(() => {
-						this.codeBtnNum--
-						this.codeBtnText = `${this.codeBtnNum}S`
-						if (this.codeBtnNum <= 0) {
-							this.isCodeBtn = true
-							this.codeBtnNum = 60
-							this.btnStyle.background = '#1B2945'
-							this.codeBtnText = '发送验证码'
-							clearInterval(timer)
-						}
-					}, 1000)
-					this.$u.api.getcode({
-						mail: this.form.mail,
-						type: 1
-					}).then(res => {
-						console.log(res);
-					})
-				}
-			},
 			// 登录
 			login() {
+				this.form.password = this.$md5(this.form.password)
 				this.$u.api.login(this.form).then(res => {
 					console.log(res);
 					if (res.code == 0) {
+						uni.setStorageSync('userToken', res.items)
 						this.$refs.uToast.show({
 							title: '登录成功',
 							type: 'success',
 							icon: false,
-							url: 'pages/buy/index',
-							isTab: true,
+							callback: () => {
+								uni.reLaunch({
+									url: '/pages/index/default/default'
+								})
+							}
 						})
 					} else {
 						this.$refs.uToast.show({
@@ -174,12 +131,6 @@
 			border-radius: 48rpx;
 			background: #1B2945;
 			border: 4rpx solid #fff;
-		}
-
-		.send-code {
-			position: absolute;
-			top: 150rpx;
-			right: 40rpx;
 		}
 
 		.login-btn {
