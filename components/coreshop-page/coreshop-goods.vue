@@ -17,7 +17,7 @@
                                 </view>
 								<good-level :level="item.grade"></good-level>
                                 <view class="good-price">
-                                    {{item.price}} U
+                                    <!-- {{item.price}} U -->
 									<!-- <span class="u-font-xs  coreshop-text-through u-margin-left-15 coreshop-text-gray">{{item.mktprice}}U</span> -->
                                 </view>
                                 <view class="good-tag-recommend" v-if="item.isRecommend">
@@ -30,13 +30,13 @@
                         </u-grid-item>
                     </u-grid>
                 </view>
-                <view v-else-if="!count && !coreshopdata.parameters.listAjax">
+               <!-- <view v-else-if="!count && !coreshopdata.parameters.listAjax">
                     <u-grid col="3" :border="false" align="center">
                         <u-grid-item bg-color="transparent" :custom-style="{padding: '0rpx'}" v-for="item in 3" :key="item">
-                            <view class="good_box">
+                            <view class="good_box"> -->
                                 <!-- 警告：微信小程序中需要hx2.8.11版本才支持在template中结合其他组件，比如下方的lazy-load组件 -->
                                 <!--<u-lazy-load threshold="-450" border-radius="10" image="/static/images/common/empty.png"></u-lazy-load>-->
-                                <view class="good_title u-line-2">
+                              <!--  <view class="good_title u-line-2">
                                     无
                                 </view>
                                 <view class="good-price">
@@ -51,7 +51,7 @@
                             </view>
                         </u-grid-item>
                     </u-grid>
-                </view>
+                </view> -->
             </view>
 
             <!-- 列表平铺单列 -->

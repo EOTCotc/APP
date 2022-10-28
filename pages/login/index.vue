@@ -58,6 +58,7 @@
 					console.log(res);
 					if (res.code == 0) {
 						uni.setStorageSync('userToken', res.items)
+						uni.setStorageSync('pwd',this.form.password)
 						this.$refs.uToast.show({
 							title: '登录成功',
 							type: 'success',

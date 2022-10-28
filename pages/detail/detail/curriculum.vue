@@ -14,7 +14,7 @@
 			</view>
 			<view class="buy">
 				<text class="count">{{detail.buyNum}}人购买</text>
-				<text class="price">{{detail.price}}U</text>
+				<!-- <text class="price">{{detail.price}}U</text> -->
 			</view>
 		</view>
 		<u-gap height="16" bg-color="#F5F6F7"></u-gap>

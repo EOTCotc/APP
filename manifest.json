@@ -130,7 +130,7 @@
         "devServer" : {
             "port" : 80,
             "disableHostCheck" : true,
-            "https" : true
+            "https" : false
         },
         "sdkConfigs" : {
             "maps" : {

@@ -93,17 +93,17 @@
 		},
 		methods: {
 			query() {
-				uni.request({
-					url: 'https://api.eotcyu.club/api/OTC/QueryPoints?uid=' + this.user.uid + '&pwd=' + this.user
-						.userId,
-					method: 'post',
-					success: (res) => {
-						console.log(res)
-						this.USDT = +res.data.USDT;
-						this.EOTC = +res.data.EOTC;
-					}
-				})
-			},
+			    let pwd=uni.getStorageSync('pwd')
+			    uni.request({
+			     // url:'https://api.eotcyu.club/api/OTC/QueryPoints?uid=325197&pwd=4b9a4d9e1cffcc662c8401a7f0a757a7',
+			      url: 'https://api.eotcyu.club/api/OTC/QueryPoints?uid=' + this.user.uid + '&pwd=' + pwd,
+			     method: 'post',
+			     success: (res) => {
+			      this.USDT = +res.data.USDT;
+			      this.EOTC = +res.data.EOTC;
+			     }
+			    })
+			   },
 			about() {},
 			// did认证
 			authority() {

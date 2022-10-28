@@ -932,8 +932,13 @@ const install = (Vue, vm) => {
 	}, {
 		needToken: true
 	});
+	// // 更新APP版本
+	let getVersion = (params={}) => vm.$u.get('api/appversion/appversionbytype',params, Headers = {
+  'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
+ })
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
+		 getVersion,
 		getCourse,
 		getCourseDetail,
 		getuserinfo,

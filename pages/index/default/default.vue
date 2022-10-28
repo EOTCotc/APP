@@ -46,7 +46,6 @@
 					backgroundColor: '#FFFFFF'
 				},
                 titleColor: '#333333',
-
                 swiperItems: [],
                 currentIndex: 0,
                 opacity: 0,
