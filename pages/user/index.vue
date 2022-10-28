@@ -99,8 +99,8 @@
 			      url: 'https://api.eotcyu.club/api/OTC/QueryPoints?uid=' + this.user.uid + '&pwd=' + pwd,
 			     method: 'post',
 			     success: (res) => {
-			      this.USDT = +res.data.USDT;
-			      this.EOTC = +res.data.EOTC;
+			      this.USDT = res.data.USDT;
+			      this.EOTC = res.data.EOTC;
 			     }
 			    })
 			   },
@@ -189,8 +189,8 @@
 		clear: both;
 		display: flex;
 		justify-content: space-around;
-		margin-bottom: 20rpx;
-
+		margin-bottom: 40rpx;
+		
 		.one {
 			width: 43%;
 			height: 145rpx;

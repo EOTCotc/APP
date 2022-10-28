@@ -22,7 +22,8 @@
 			return {
 				type: null,
 				newArr: {},
-				appversion: ''
+				appversion: '',
+				timer: null
 			}
 		},
 		methods: {
@@ -37,19 +38,17 @@
 						// try {
 						// 	uni.setStorageSync('appversion', appversion);
 						// } catch (e) {}
-						console.log("appversion:" + that.appversion, that.$u.api.getVersion);
+						console.log("appversion:" + that.appversion);
 						that.$u.api.getVersion({
 							osType: that.type
 						}).then(res => {
-							if (res.code == 0) {
+							if (res.code == 0 && res.items != null) {
 								that.newArr = res.items
 								that.checkOK()
 							}
-							console.log(res,that.newArr, 'res')
-						}).catch(err => {
-							console.log(111);
+							console.log(res, that.newArr, 'res')
 						})
-						
+
 					})
 				})
 
@@ -57,12 +56,13 @@
 			//确认更新
 			checkOK() {
 				let that = this;
-				// let newVersion = this.newArr.neversionNo;
-				let newVersion = '2.0';
+				let newVersion = that.newArr.versionNo;
+				// let newVersion = '2.0';
+				console.log(newVersion)
 				if (that.appversion < newVersion) {
 					// 需要更新
 					// this.needUpdate = true;
-					console.log(that.appversion,'that.appversion')
+					console.log(that.appversion, 'that.appversion')
 					uni.showModal({
 						title: '版本更新提示',
 						content: 'APP发现新版本，请进行更新',
@@ -74,11 +74,12 @@
 								that.checkWgtUpdate();
 							} else {
 								uni.hideLoading()
-								setTimeout(() => {
+								clearTimeout(that.timer)
+								that.timer = setTimeout(() => {
 									uni.switchTab({
 										url: '/pages/index/default/default'
 									})
-								}, 3000)
+								}, 2000)
 							}
 						}
 					})
@@ -87,15 +88,14 @@
 			//更新
 			checkWgtUpdate() {
 				let that = this;
-				plus.nativeUI.showWaiting("更新中...");
 				console.log(that.newArr)
 				let downloadUrl = [];
-				downloadUrl.push(this.newArr.link1)
-				downloadUrl.push(this.newArr.link2)
-				downloadUrl.push(this.newArr.link3)
-				console.log(downloadUrl, 'result')
-				let index = Math.floor(Math.random() * 3)
+				if (this.newArr.link1 != null) downloadUrl.push(this.newArr.link1)
+				if (this.newArr.link2 != null) downloadUrl.push(this.newArr.link2)
+				if (this.newArr.link3 != null) downloadUrl.push(this.newArr.link3)
+				let index = Math.floor(Math.random() * downloadUrl.length)
 				console.log(downloadUrl[index], index, 'downloadUrl[index]')
+				plus.nativeUI.showWaiting("更新中...");
 				let downloadTask = uni.downloadFile({ //执行下载
 					url: downloadUrl[index],
 					success: downloadResult => {
@@ -116,6 +116,7 @@
 									plus.nativeUI.closeWaiting();
 									utils.showToast('更新失败');
 								}
+
 							)
 						}
 						plus.nativeUI.closeWaiting();
