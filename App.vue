@@ -2,28 +2,27 @@
 	import Vue from 'vue'
 	export default {
 		onLaunch: async function(options) {
-			console.log(options, 'options')
 			let that = this;
 			// #ifdef APP-PLUS
 			plus.navigator.closeSplashscreen()
-
+			that.checkAppUpdate()
+				.finally(() => {
+					uni.hideLoading();
+				})
 			// #endif
-
 			let platform = uni.getSystemInfoSync().platform;
 			if (platform == 'android') {
-				this.type = 0
+				that.type = 0
 			} else if (platform == 'ios') {
-				this.type = 1
+				that.type = 1
 			}
 			console.log(platform, 'platform')
-			that.checkAppUpdate().finally(() => {
-				uni.hideLoading();
-			})
 		},
 		data() {
 			return {
 				type: null,
-				newArr: {}
+				newArr: {},
+				appversion: ''
 			}
 		},
 		methods: {
@@ -31,42 +30,39 @@
 			checkAppUpdate() {
 				let that = this;
 				return new Promise((resolve, reject) => {
-					// plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
-					//  获取 app的version
-					// let appversion = widgetInfo.version;
-					// // 存缓存 版本号
-					// try {
-					// 	uni.setStorageSync('appversion', appversion);
-					// } catch (e) {}
-					// console.log("appversion:" + appversion);
-					this.$u.api.getVersion({
-						osType: that.type
-					}).then(res => {
-						console.log(res, 'result')
+					plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
+						// 获取 app的version
+						that.appversion = widgetInfo.version
+						// // 存缓存 版本号
+						// try {
+						// 	uni.setStorageSync('appversion', appversion);
+						// } catch (e) {}
+						console.log("appversion:" + that.appversion, that.$u.api.getVersion);
+						that.$u.api.getVersion({
+							osType: that.type
+						}).then(res => {
+							if (res.code == 0) {
+								that.newArr = res.items
+								that.checkOK()
+							}
+							console.log(res,that.newArr, 'res')
+						}).catch(err => {
+							console.log(111);
+						})
+						
 					})
-					// uni.request({
-					// 	url: 'http://192.168.1.14:5555/api/appversion/appversionbytype?osType='+this.type,
-					// 	method:'GET',
-					// 	success: (result) => {
-					// 		console.log(result,'result')
-					// 		// that.newArr = result.data;
-					// 		// that.checkOK()
-					// 	},
-					// 	fail:(err)=>{
-					// 		console.log(err)
-					// 	}
-					// })
-					// })
 				})
+
 			},
 			//确认更新
 			checkOK() {
 				let that = this;
-				console.log(that.newArr.data.update)
-				if (that.newArr.data.update && that.newArr.data.wgtUrl) {
-					console.toLocaleString(that.newArr.data.update)
+				// let newVersion = this.newArr.neversionNo;
+				let newVersion = '2.0';
+				if (that.appversion < newVersion) {
 					// 需要更新
-					this.needUpdate = true;
+					// this.needUpdate = true;
+					console.log(that.appversion,'that.appversion')
 					uni.showModal({
 						title: '版本更新提示',
 						content: 'APP发现新版本，请进行更新',
@@ -80,7 +76,7 @@
 								uni.hideLoading()
 								setTimeout(() => {
 									uni.switchTab({
-										url: '/pages/index/index'
+										url: '/pages/index/default/default'
 									})
 								}, 3000)
 							}
@@ -92,9 +88,16 @@
 			checkWgtUpdate() {
 				let that = this;
 				plus.nativeUI.showWaiting("更新中...");
-				console.log(that.newArr.data.wgtUrl)
+				console.log(that.newArr)
+				let downloadUrl = [];
+				downloadUrl.push(this.newArr.link1)
+				downloadUrl.push(this.newArr.link2)
+				downloadUrl.push(this.newArr.link3)
+				console.log(downloadUrl, 'result')
+				let index = Math.floor(Math.random() * 3)
+				console.log(downloadUrl[index], index, 'downloadUrl[index]')
 				let downloadTask = uni.downloadFile({ //执行下载
-					url: that.newArr.data.wgtUrl,
+					url: downloadUrl[index],
 					success: downloadResult => {
 						console.log('下载', downloadResult)
 						uni.hideLoading()

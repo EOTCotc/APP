@@ -33,7 +33,8 @@ const install = (Vue, vm) => {
                 Vue.prototype.$store.commit('showLoginTip', true);
                 return false;
             } else {
-                config.header.Authorization = 'Bearer ' + userToken;
+				let aaa='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1ZjUyNGYwNy02YTE1LTQwNTktOGM3Mi1hOWM3NjYyN2I1MGUiLCJuYmYiOjE2NjY1NzU1MzEsImV4cCI6MTY2OTE2NzUzMSwiaXNzIjoiZW90YyIsImF1ZCI6ImVvdGMifQ.ckuH1OsS7Xc7e7nqUhWnk-RRkr_fqWUd8EVeTJOppig'
+                config.header.Authorization = 'Bearer ' + aaa;
 			
             }
         }
