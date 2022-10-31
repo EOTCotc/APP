@@ -4,17 +4,40 @@
 		onLaunch: async function(options) {
 			let that = this;
 			// #ifdef APP-PLUS
+			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
+				// 获取 app的version
+				that.appversion = widgetInfo.version
+				try {
+					uni.setStorageSync('appversion', that.appversion);
+				} catch (e) {}
+			})
 			plus.navigator.closeSplashscreen()
 			that.checkAppUpdate()
 				.finally(() => {
 					uni.hideLoading();
 				})
+
 			// #endif
 			let platform = uni.getSystemInfoSync().platform;
 			if (platform == 'android') {
 				that.type = 0
 			} else if (platform == 'ios') {
 				that.type = 1
+			}
+			// token标志来判断
+			let token = uni.getStorageSync('userToken');
+			console.log(!token)
+			if (!token) {
+				//不存在则跳转至登录页
+				uni.reLaunch({
+					url: "/pages/login/index",
+					// success: () => {
+					// 	plus.navigator.closeSplashscreen();
+					// }
+				})
+			} else {
+				//存在则关闭启动页进入首页
+				// plus.navigator.closeSplashscreen();
 			}
 			console.log(platform, 'platform')
 		},
@@ -32,12 +55,10 @@
 				let that = this;
 				return new Promise((resolve, reject) => {
 					plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
-						// 获取 app的version
-						that.appversion = widgetInfo.version
-						// // 存缓存 版本号
-						// try {
-						// 	uni.setStorageSync('appversion', appversion);
-						// } catch (e) {}
+
+						// that.appversion = widgetInfo.version
+						// 存缓存 版本号
+
 						console.log("appversion:" + that.appversion);
 						that.$u.api.getVersion({
 							osType: that.type
@@ -58,7 +79,7 @@
 				let that = this;
 				let newVersion = that.newArr.versionNo;
 				// let newVersion = '2.0';
-				console.log(newVersion)
+				console.log(newVersion, that.appversion < newVersion)
 				if (that.appversion < newVersion) {
 					// 需要更新
 					// this.needUpdate = true;
@@ -94,7 +115,7 @@
 				if (this.newArr.link2 != null) downloadUrl.push(this.newArr.link2)
 				if (this.newArr.link3 != null) downloadUrl.push(this.newArr.link3)
 				let index = Math.floor(Math.random() * downloadUrl.length)
-				console.log(downloadUrl[index], index, 'downloadUrl[index]')
+				console.log(downloadUrl, downloadUrl[index], index, 'downloadUrl[index]')
 				plus.nativeUI.showWaiting("更新中...");
 				let downloadTask = uni.downloadFile({ //执行下载
 					url: downloadUrl[index],

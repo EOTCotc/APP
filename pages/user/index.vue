@@ -70,7 +70,7 @@
 				list: ['关于恢复交易所释放空投的公告'],
 				show: false,
 				show_out: false,
-				content: "即将前往DID去中心话认证系统",
+				content: "即将前往DID去中心化认证系统",
 				out: "确定要退出当前账号吗？",
 				conStyle: {
 					color: "#FD5009"
@@ -128,6 +128,7 @@
 				try {
 					uni.removeStorageSync('userToken');
 					uni.removeStorageSync('user');
+					uni.removeStorageSync('pwd');
 					uni.redirectTo({
 						url: '/pages/login/index'
 					})
