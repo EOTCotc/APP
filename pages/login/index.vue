@@ -16,8 +16,10 @@
 							placeholder='请输入邮箱地址' />
 					</u-form-item>
 					<u-form-item label="密码" label-position='top' :border-bottom='false'>
-						<u-input type='password' v-model="form.password" :clearable='false' :custom-style="inputStyle2"
-							placeholder='请输入密码' />
+						<view style="border:1px solid #C8CFDE;width:100%;border-radius: 16rpx;padding:0 30rpx">
+						       <u-input type='password' v-model="form.password" :clearable='false' 
+						        placeholder='请输入密码' />
+						      </view>
 					</u-form-item>
 				</u-form>
 			</view>
@@ -39,11 +41,11 @@
 					border: '1px solid #C8CFDE',
 					borderRadius: '16rpx'
 				},
-				inputStyle2: {
-					padding: '0 30rpx',
-					border: '1px solid #C8CFDE',
-					borderRadius: '16rpx'
-				},
+				// inputStyle2: {
+				// 	padding: '0 30rpx',
+				// 	border: '1px solid #C8CFDE',
+				// 	borderRadius: '16rpx'
+				// },
 				form: {
 					mail: '',
 					password: '',

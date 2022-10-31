@@ -80,6 +80,13 @@
                 homeTitle: '币秋',
             };
         },
+		// onShow() {
+		// 	if(!uni.getStorageSync('userToken')){
+		// 		uni.reLaunch({
+		// 			url:'/pages/login/index'
+		// 		})
+		// 	}
+		// },
         computed: {
             ...mapState({
                 hasLogin: state => state.hasLogin,

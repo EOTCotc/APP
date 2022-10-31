@@ -190,7 +190,7 @@
 
 		.send-code {
 			position: absolute;
-			top: 230rpx;
+			top: 220rpx;
 			right: 32rpx;
 			padding: 0 20rpx;
 			width: 200rpx;
