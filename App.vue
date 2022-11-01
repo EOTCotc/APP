@@ -16,14 +16,6 @@
 				.finally(() => {
 					uni.hideLoading();
 				})
-
-			// #endif
-			let platform = uni.getSystemInfoSync().platform;
-			if (platform == 'android') {
-				that.type = 0
-			} else if (platform == 'ios') {
-				that.type = 1
-			}
 			// token标志来判断
 			let token = uni.getStorageSync('userToken');
 			console.log(!token)
@@ -31,13 +23,20 @@
 				//不存在则跳转至登录页
 				uni.reLaunch({
 					url: "/pages/login/index",
-					// success: () => {
-					// 	plus.navigator.closeSplashscreen();
-					// }
+					success: () => {
+						plus.navigator.closeSplashscreen();
+					}
 				})
 			} else {
 				//存在则关闭启动页进入首页
-				// plus.navigator.closeSplashscreen();
+				plus.navigator.closeSplashscreen();
+			}
+			// #endif
+			let platform = uni.getSystemInfoSync().platform;
+			if (platform == 'android') {
+				that.type = 0
+			} else if (platform == 'ios') {
+				that.type = 1
 			}
 			console.log(platform, 'platform')
 		},
@@ -55,10 +54,8 @@
 				let that = this;
 				return new Promise((resolve, reject) => {
 					plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
-
 						// that.appversion = widgetInfo.version
 						// 存缓存 版本号
-
 						console.log("appversion:" + that.appversion);
 						that.$u.api.getVersion({
 							osType: that.type

@@ -192,6 +192,20 @@
 				"enablePullDownRefresh": false
 			}
 		}
+		, {
+			"path": "pages/game/spinwin/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}
+		, {
+			"path": "pages/game/spinwin/spinwin",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}
 	    ,{
             "path" : "pages/mall/index/index",
             "style" :                                                                                    
