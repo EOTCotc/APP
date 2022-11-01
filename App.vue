@@ -38,7 +38,6 @@
 			} else if (platform == 'ios') {
 				that.type = 1
 			}
-
 			console.log(platform, 'platform')
 		},
 		data() {
@@ -55,10 +54,8 @@
 				let that = this;
 				return new Promise((resolve, reject) => {
 					plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
-						
 						// that.appversion = widgetInfo.version
 						// 存缓存 版本号
-						
 						console.log("appversion:" + that.appversion);
 						that.$u.api.getVersion({
 							osType: that.type
