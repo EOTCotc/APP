@@ -4,7 +4,7 @@
 		<view class="main">
 			<u-image class="logo" src="@/static/images/buy/logo.png" width="120" mode="widthFix"></u-image>
 			<view class="name">EOTC</view>
-			<view class="version">V2.0版本</view>
+			<view class="version">V{{val}}版本</view>
 		</view>
 		<view class="list">
 			<u-cell-item title="官方网站" value="https://eotc.im"></u-cell-item>
@@ -12,7 +12,7 @@
 			<u-cell-item title="官方推特" value="https://twitter.com/EOTC9"></u-cell-item>
 			<u-cell-item title="客服邮箱" value="coin@eotc.me" @click="showSheet()"></u-cell-item>
 			<u-gap height="30" bg-color="#f5f6f7"></u-gap>
-			<u-cell-item title="当前版本" value="V2.0"></u-cell-item>
+			<u-cell-item title="当前版本" :value="val"></u-cell-item>
 		</view>
 			<u-action-sheet :list="list" v-model="show" border-radius="25" @click="select"></u-action-sheet>
 	</view>
@@ -24,7 +24,11 @@
 			return {
 				list:[{text:"复制"},{text:"发送邮件"}],
 				show:false,
+				val:''
 			};
+		},
+		onLoad() {
+			this.val=uni.getStorageSync('appversion') ? uni.getStorageSync('appversion')　: ''
 		},
 		methods:{
 			//返回

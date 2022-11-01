@@ -11,11 +11,11 @@
 			<view class="integral">
 				<view class="one">
 					<text>E积分</text>
-					<text class="num">{{EOTC}}</text>
+					<text class="num">{{user.eotc}}</text>
 				</view>
 				<view class="one two">
 					<text>U积分</text>
-					<text class="num">{{USDT}}</text>
+					<text class="num">{{user.usdt}}</text>
 				</view>
 			</view>
 			<view>
@@ -70,20 +70,18 @@
 				list: ['关于恢复交易所释放空投的公告'],
 				show: false,
 				show_out: false,
-				content: "即将前往DID去中心话认证系统",
+				content: "即将前往DID去中心化认证系统",
 				out: "确定要退出当前账号吗？",
 				conStyle: {
 					color: "#FD5009"
 				},
 				user: {},
-				EOTC: null,
-				USDT: null,
+		
 			}
 		},
 		created() {
 			this.$u.api.getuserinfo().then(res => {
 				this.user = res.items;
-				this.query()
 				uni.setStorageSync("user", this.user)
 			});
 			// let data={uid:this.uid,pwd:this.pwd};
@@ -92,18 +90,7 @@
 			// })
 		},
 		methods: {
-			query() {
-			    let pwd=uni.getStorageSync('pwd')
-			    uni.request({
-			     // url:'https://api.eotcyu.club/api/OTC/QueryPoints?uid=325197&pwd=4b9a4d9e1cffcc662c8401a7f0a757a7',
-			      url: 'https://api.eotcyu.club/api/OTC/QueryPoints?uid=' + this.user.uid + '&pwd=' + pwd,
-			     method: 'post',
-			     success: (res) => {
-			      this.USDT = res.data.USDT;
-			      this.EOTC = res.data.EOTC;
-			     }
-			    })
-			   },
+			
 			about() {},
 			// did认证
 			authority() {
@@ -128,6 +115,7 @@
 				try {
 					uni.removeStorageSync('userToken');
 					uni.removeStorageSync('user');
+					uni.removeStorageSync('pwd');
 					uni.redirectTo({
 						url: '/pages/login/index'
 					})

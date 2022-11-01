@@ -1,6 +1,5 @@
 <template>
 	<view class="warp">
-		<!-- <web-view :src="src" fullscreen :webview-styles="webviewStyles"></web-view> -->
 		<u-navbar :is-back="false" :title="homeTitle" :title-color="titleColor"></u-navbar>
 		<view class="box1">
 			<view class="bg-purple list">
@@ -52,24 +51,18 @@
 		},
 		data() {
 			return {
-				src: null,
 				active: 2,
 				homeTitle: "游戏大厅",
 				background: "#fff",
 				titleColor: "#333333",
-				webviewStyles: {
-					width: '100%',
-					height: '100%'
-				}
 			};
 		},
 		methods: {
 			spinwin() {
-				// this.src = "https://uniapp.dcloud.io/static/web-view.html"
-				// console.log(this.src, 'this.src')
-				uni.reLaunch({
+				uni.navigateTo({
 					url: '/pages/game/spinwin/index'
 				})
+				
 			},
 			smashgoldeneggs() {
 				uni.reLaunch({
@@ -129,7 +122,7 @@
 		flex-direction: column;
 		justify-content: space-evenly;
 		align-items: center;
-		height: 270rpx;
+		height: 280rpx;
 		width: 210rpx;
 
 		.text {
